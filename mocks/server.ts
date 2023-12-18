@@ -14,7 +14,7 @@ interface obj {
     req: RestRequest<never, PathParams<string>>,
     res: ResponseComposition<DefaultBodyType>,
     ctx: RestContext
-  ): any;
+  ): void;
   method: string;
   path: string;
 }
@@ -41,7 +41,6 @@ export const createServer = (handlerConfig: obj[]) => {
   });
 
   afterEach(() => {
-  
     server.resetHandlers();
   });
 
