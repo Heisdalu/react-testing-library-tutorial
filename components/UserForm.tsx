@@ -1,20 +1,26 @@
 import { FC, useState, FormEventHandler } from "react";
-import { UserObj } from "..";
+import { UserObj } from "../pages";
 
 interface UserFormTypes {
-  onUserAdd: (user: UserObj) => void;
+  onUserAdd?: (user: UserObj) => void;
 }
 
 const UserForm: FC<UserFormTypes> = ({ onUserAdd }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [clicked, setClicked] = useState(false);
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
-    onUserAdd({ email, name });
+    if (onUserAdd) {
+      onUserAdd({ email, name });
+      setClicked(true);
+    }
     setEmail("");
     setName("");
   };
+
+  console.log("render");
 
   return (
     <form className="m-[5rem] space-y-[2rem]" onSubmit={handleSubmit}>
@@ -36,12 +42,17 @@ const UserForm: FC<UserFormTypes> = ({ onUserAdd }) => {
           id="email"
           name="email"
           value={email}
+          placeholder="Enter email"
           onChange={(e) => setEmail(e.target.value)}
           className="border-black border-[1px]"
         />
       </div>
 
-      <button className="border-[1px] p-[2rem]">submit</button>
+      <button
+        className={`border-[1px] p-[2rem] ${clicked ? "active" : "inactive"}`}
+      >
+        submit
+      </button>
     </form>
   );
 };

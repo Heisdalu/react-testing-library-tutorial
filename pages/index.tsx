@@ -1,10 +1,14 @@
-import UserForm from "./components/UserForm";
+import UserForm from "../components/UserForm";
 import { useState } from "react";
-import UserList from "./components/UserList";
+import UserList from "../components/UserList";
 
 export interface UserObj {
   name: string;
   email: string;
+}
+
+interface Obj {
+  [key: string]: number;
 }
 
 export default function Home() {
